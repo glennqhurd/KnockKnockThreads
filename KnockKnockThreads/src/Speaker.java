@@ -2,16 +2,17 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Speaker {
 	private String[] names;
-	private String currentName1, currentName2;
+	private String currentName1;
+	private String currentName2 = "";
 	
 	public Speaker (String[] names) {
 		this.names = names;
-		Integer name1 = ThreadLocalRandom.current().nextInt(0, names.length);
+		int name1 = ThreadLocalRandom.current().nextInt(0, names.length);
 		this.currentName1 = names[name1];
-		while (currentName2 == null) {
-			Integer name2 = ThreadLocalRandom.current().nextInt(0, names.length);
-			if (!name2.equals(name1)) {
-				this.currentName2 = names[1];
+		while (currentName2.equals("")) {
+			int name2 = ThreadLocalRandom.current().nextInt(0, names.length);
+			if (!(name2 == name1)) {
+				this.currentName2 = names[name2];
 			}
 		}
 	}
