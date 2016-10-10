@@ -1,11 +1,13 @@
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Speaker {
-	private String[] names;
+	private List<String> names;
 	private String currentName1;
 	private String currentName2 = "";
 	
-	public Speaker (String[] names) {
+	public Speaker (List<String> names) {
 		this.names = names;
 		this.setRandomNames();
 	}
@@ -25,13 +27,10 @@ public class Speaker {
 	}
 	
 	public void setRandomNames () {
-		int name1 = ThreadLocalRandom.current().nextInt(0, names.length);
-		this.currentName1 = names[name1];
-		while (currentName2.equals("")) {
-			int name2 = ThreadLocalRandom.current().nextInt(0, names.length);
-			if (!(name2 == name1)) {
-				this.currentName2 = names[name2];
-			}
-		}
+		int idx = ThreadLocalRandom.current().nextInt(names.size());
+		this.currentName1 = this.names.get(idx);
+		Collections.swap(this.names, idx, (this.names.size() - 1));
+		idx = ThreadLocalRandom.current().nextInt(names.size() - 1);
+		this.currentName2 = this.names.get(idx);
 	}
 }
