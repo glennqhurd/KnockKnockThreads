@@ -7,6 +7,7 @@ public class Speaker {
 	private List<String> names;
 	private String currentName;
 	private Joke joke = new Joke();
+	private String nameInUse = "";
 	
 	public Speaker (List<String> names) {
 		this.names = names;
@@ -27,8 +28,25 @@ public class Speaker {
 		this.setRandomName();
 	}
 	
+	public String getCurrentName() {
+		return this.currentName;
+	}
+	
+	public void setNameInUse(String nameInUse) {
+		this.nameInUse = nameInUse;
+	}
+	
 	private void setRandomName() {
-		int idx = ThreadLocalRandom.current().nextInt(names.size());
-		this.currentName = this.names.get(idx);
+		int idx;
+		if (this.nameInUse == "") {
+			idx = ThreadLocalRandom.current().nextInt(names.size() - 1);
+			this.currentName = this.names.get(idx);
+		}
+		else {
+			idx = names.indexOf(this.nameInUse);
+			Collections.swap(this.names, idx, (this.names.size() - 1));
+			idx = ThreadLocalRandom.current().nextInt(names.size() - 1);
+			this.currentName = this.names.get(idx);
+		}
 	}
 }
