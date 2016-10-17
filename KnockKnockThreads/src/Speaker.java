@@ -15,15 +15,17 @@ public class Speaker {
 	}
 	
 	public void speakJokes () {
+		String jokeLine = this.joke.getNextLine();
 		String firstSpeaker = String.format("%s: Knock knock!\n", this.currentName);
 		System.out.println(firstSpeaker);
 		String secondSpeaker = String.format("%s: Who's there?\n", this.currentName);
 		System.out.println(secondSpeaker);
-		firstSpeaker = String.format("%s: Boo.\n", this.currentName);
+		firstSpeaker = String.format("%s: %s\n", this.currentName, jokeLine);
 		System.out.println(firstSpeaker);
-		secondSpeaker = String.format("%s: Boo who?\n", this.currentName);
+		secondSpeaker = String.format("%s: %s who?\n", this.currentName, jokeLine);
 		System.out.println(secondSpeaker);
-		firstSpeaker = String.format("%s: Why are you crying?\n", this.currentName);
+		jokeLine = this.joke.getNextLine();
+		firstSpeaker = String.format("%s: %s\n", this.currentName, jokeLine);
 		System.out.println(firstSpeaker);
 		this.setRandomName();
 	}
