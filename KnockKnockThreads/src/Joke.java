@@ -1,25 +1,29 @@
-import java.util.List;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONArray;
 
 public class Joke {
-	private String line1, line2;
+	private final String line1;
+	private final String line2;
 	
 	public Joke(JSONObject json) {
+		String l1 = "";
+		String l2 = "";
 		try {
-			line1 = json.getString("Line 1");
+			l1 = json.getString("Line 1");
+			l2 = json.getString("Line 2");
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		try {
-			line2 = json.getString("Line 2");
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+		this.line1 = l1;
+		this.line2 = l2;
 	}
 
 	public String getLine1() {
@@ -30,14 +34,35 @@ public class Joke {
 		return line2;
 	}
 	
-	public static List<Joke> jsonToJokes(JSONArray json) {
-		List<Joke> jokeList = new ArrayList<Joke>();
+	public static List<Joke> jsonToJokes() {
+		String jsonData = "";
+		BufferedReader br = null;
 		try {
-			for (int i = 0; i < json.length(); i++){
-				jokeList.add(new Joke(json.getJSONObject(i)));
+			String line;
+			br = new BufferedReader(new FileReader("C:\\Users\\Glenn\\KnockKnockThreads\\KnockKnockThreads\\Jokes.txt"));
+			while ((line = br.readLine()) != null) {
+				jsonData += line + "\n";
 			}
-		} catch (JSONException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if (br != null)
+					br.close();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+		
+		List<Joke> jokeList = new ArrayList<Joke>();
+		
+		try {
+			JSONArray jsonArray = new JSONArray(jsonData);
+			for (int i = 0; i < jsonArray.length(); i++){
+				jokeList.add(new Joke(jsonArray.getJSONObject(i)));
+			}
+		} catch (JSONException e2){
+			e2.printStackTrace();
 		}
 		return jokeList;
 	}
