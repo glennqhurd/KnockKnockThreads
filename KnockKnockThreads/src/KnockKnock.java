@@ -40,8 +40,17 @@ public class KnockKnock {
 			e2.printStackTrace();
 		}
 		
-		Speaker speaker = new Speaker(names, jokeList);
+		Speaker speaker1 = new Speaker(names, jokeList, 1);
+		Speaker speaker2 = new Speaker(names, jokeList, 2);
+		Thread thread1 = new Thread(speaker1);
+		Thread thread2 = new Thread(speaker2);
+		
+		thread1.start();
+		thread2.start();
+		
+		/*
 		speaker.speakJokes();
 		speaker.speakJokes();
+		*/
 	}
 }
