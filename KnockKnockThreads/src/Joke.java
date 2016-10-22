@@ -2,24 +2,43 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONArray;
+
 public class Joke {
-	private List<String> jokeList = new ArrayList<String>();
-	private List<String> syncJokeList = Collections.synchronizedList(jokeList);
+	private String line1, line2;
 	
-	public Joke() {
-		this.jokeList.add("Boo");
-		this.jokeList.add("Why are you crying?");
-		this.jokeList.add("A broken pencil");
-		this.jokeList.add("Never mind, it's pointless");
+	public Joke(JSONObject json) {
+		try {
+			line1 = json.getString("Line 1");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		try {
+			line2 = json.getString("Line 2");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public String getLine1() {
+		return line1;
 	}
 	
-	public void setJokeList(List<String> jokeList) {
-		this.jokeList = jokeList;
+	public String getLine2() {
+		return line2;
 	}
 	
-	public String getNextLine() {
-		String joke = this.jokeList.get(0);
-		this.jokeList.remove(0);
-		return joke;
+	public static List<Joke> jsonToJokes(JSONArray json) {
+		List<Joke> jokeList = new ArrayList<Joke>();
+		try {
+			for (int i = 0; i < json.length(); i++){
+				jokeList.add(new Joke(json.getJSONObject(i)));
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return jokeList;
 	}
 }
