@@ -9,12 +9,23 @@ public class Speaker implements Runnable {
 	private List<Joke> jokeList;
 	private String nameInUse = "";
 	
+	/**
+	 * A Speaker is an object that uses the run command to tell jokes
+	 * as part of a Thread.  It reads Joke object variables to turn the
+	 * lines of the joke into Strings that are printed out.
+	 * 
+	 * @param names A List of Strings that contains the possible names
+	 * @param jokeList A List of Joke objects that store Strings
+	 */
 	public Speaker (List<String> names, List<Joke> jokeList) {
 		this.names = names;
 		this.jokeList = jokeList;
 		this.setRandomName();
 	}
 	
+	/**
+	 * Default method used by Threads to print Strings using the method speakJokes
+	 */
 	public void run() {
 		while (!jokeList.isEmpty()) {
 			this.speakJokes();
@@ -22,6 +33,10 @@ public class Speaker implements Runnable {
 		}
 	}
 	
+	/**
+	 * Method that takes the first Joke element in the List jokeList and uses String Format
+	 * to print out the currentName and the Joke info in a String
+	 */
 	public void speakJokes () {
 		String jokeLine = this.jokeList.get(0).getLine1();
 		String firstSpeaker = String.format("%s: Knock knock!\n", this.currentName);
@@ -39,6 +54,9 @@ public class Speaker implements Runnable {
 		this.setRandomName();
 	}
 	
+	/**
+	 * Sets the String variable currentName randomly from the List<String> names
+	 */
 	private void setRandomName() {
 		int idx;
 		if (this.nameInUse == "") {

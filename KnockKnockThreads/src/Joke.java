@@ -1,8 +1,8 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -13,6 +13,11 @@ public class Joke {
 	private final String line1;
 	private final String line2;
 	
+	/**
+	 * Joke object that translates a JSONObject into two line member variables
+	 * that store the lines of a Knock Knock Joke
+	 * @param json
+	 */
 	public Joke(JSONObject json) {
 		String l1 = "";
 		String l2 = "";
@@ -26,14 +31,10 @@ public class Joke {
 		this.line2 = l2;
 	}
 
-	public String getLine1() {
-		return line1;
-	}
-	
-	public String getLine2() {
-		return line2;
-	}
-	
+	/**
+	 * Opens a text file and translates the text into a List of Joke objects using JSON
+	 * @return jokeList
+	 */
 	public static List<Joke> jsonToJokes() {
 		String jsonData = "";
 		BufferedReader br = null;
@@ -65,5 +66,13 @@ public class Joke {
 			e2.printStackTrace();
 		}
 		return jokeList;
+	}
+	
+	public String getLine1() {
+		return line1;
+	}
+	
+	public String getLine2() {
+		return line2;
 	}
 }

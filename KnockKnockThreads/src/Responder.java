@@ -1,4 +1,3 @@
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -7,6 +6,11 @@ public class Responder extends Speaker implements Runnable {
 	List<Joke> jokeList;
 	String currentName;
 	
+	/**
+	 * Responder extends Speaker 
+	 * @param names
+	 * @param jokeList
+	 */
 	public Responder(List<String> names, List<Joke> jokeList) {
 		super(names, jokeList);
 	}
