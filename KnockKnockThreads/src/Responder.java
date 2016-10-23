@@ -16,21 +16,21 @@ public class Responder extends Speaker implements Runnable {
 	}
 	
 	public void run() {
-		currentName = this.getCurrentName();
-		jokeList = this.getJokeList();
+		currentName = getCurrentName();
+		jokeList = getJokeList();
 		while (!jokeList.isEmpty()) {
 			String jokeLine = jokeList.get(0).getLine1();
 			String responderString = String.format("%s: Who's there?\n", currentName);
 			System.out.println(responderString);
-			responderString = String.format("%s: %s who?\n", this.currentName, jokeLine);
+			responderString = String.format("%s: %s who?\n", currentName, jokeLine);
 			System.out.println(responderString);
-			this.setRandomName();
+			setRandomName();
 		}
 	}
 	
 	private void setRandomName() {
-		List<String> names = this.getNames();	
+		List<String> names = getNames();	
 		int idx = ThreadLocalRandom.current().nextInt(1, names.size());
-		this.currentName = names.get(idx);
+		currentName = names.get(idx);
 	}
 }

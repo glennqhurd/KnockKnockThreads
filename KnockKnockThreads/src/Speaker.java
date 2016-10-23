@@ -28,8 +28,8 @@ public class Speaker implements Runnable {
 	 */
 	public void run() {
 		while (!jokeList.isEmpty()) {
-			this.speakJokes();
-			this.setRandomName();
+			speakJokes();
+			setRandomName();
 		}
 	}
 	
@@ -38,20 +38,20 @@ public class Speaker implements Runnable {
 	 * to print out the currentName and the Joke info in a String
 	 */
 	public void speakJokes () {
-		String jokeLine = this.jokeList.get(0).getLine1();
-		String firstSpeaker = String.format("%s: Knock knock!\n", this.currentName);
+		String jokeLine = jokeList.get(0).getLine1();
+		String firstSpeaker = String.format("%s: Knock knock!\n", currentName);
 		System.out.println(firstSpeaker);
-		String secondSpeaker = String.format("%s: Who's there?\n", this.currentName);
+		String secondSpeaker = String.format("%s: Who's there?\n", currentName);
 		System.out.println(secondSpeaker);
-		firstSpeaker = String.format("%s: %s\n", this.currentName, jokeLine);
+		firstSpeaker = String.format("%s: %s\n", currentName, jokeLine);
 		System.out.println(firstSpeaker);
-		secondSpeaker = String.format("%s: %s who?\n", this.currentName, jokeLine);
+		secondSpeaker = String.format("%s: %s who?\n", currentName, jokeLine);
 		System.out.println(secondSpeaker);
-		jokeLine = this.jokeList.get(0).getLine2();
-		firstSpeaker = String.format("%s: %s\n", this.currentName, jokeLine);
+		jokeLine = jokeList.get(0).getLine2();
+		firstSpeaker = String.format("%s: %s\n", currentName, jokeLine);
 		System.out.println(firstSpeaker);
-		this.jokeList.remove(0);
-		this.setRandomName();
+		jokeList.remove(0);
+		setRandomName();
 	}
 	
 	/**
@@ -59,27 +59,27 @@ public class Speaker implements Runnable {
 	 */
 	private void setRandomName() {
 		int idx;
-		if (this.nameInUse == "") {
+		if (nameInUse == "") {
 			idx = ThreadLocalRandom.current().nextInt(names.size() - 1);
-			this.currentName = this.names.get(idx);
+			currentName = names.get(idx);
 		}
 		else {
-			idx = names.indexOf(this.nameInUse);
-			Collections.swap(this.names, idx, (this.names.size() - 1));
+			idx = names.indexOf(nameInUse);
+			Collections.swap(names, idx, (names.size() - 1));
 			idx = ThreadLocalRandom.current().nextInt(names.size() - 1);
-			this.currentName = this.names.get(idx);
+			currentName = names.get(idx);
 		}
 	}
 	
 	protected List<Joke> getJokeList() {
-		return this.jokeList;
+		return jokeList;
 	}
 	
 	protected String getCurrentName() {
-		return this.currentName;
+		return currentName;
 	}
 	
 	protected List<String> getNames() {
-		return this.names;
+		return names;
 	}
 }

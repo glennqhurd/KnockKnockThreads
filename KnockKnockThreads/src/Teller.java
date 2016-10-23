@@ -12,26 +12,26 @@ public class Teller extends Speaker implements Runnable{
 	}
 
 	public void run() {
-		currentName = this.getCurrentName();
-		jokeList = this.getJokeList();
+		currentName = getCurrentName();
+		jokeList = getJokeList();
 		while (!jokeList.isEmpty()) {
-			String jokeLine = this.jokeList.get(0).getLine1();
-			String tellerString = String.format("%s: Knock knock!\n", this.currentName);
+			String jokeLine = jokeList.get(0).getLine1();
+			String tellerString = String.format("%s: Knock knock!\n", currentName);
 			System.out.println(tellerString);
-			tellerString = String.format("%s: %s\n", this.currentName, jokeLine);
+			tellerString = String.format("%s: %s\n", currentName, jokeLine);
 			System.out.println(tellerString);
-			jokeLine = this.jokeList.get(0).getLine2();
-			tellerString = String.format("%s: %s\n", this.currentName, jokeLine);
+			jokeLine = jokeList.get(0).getLine2();
+			tellerString = String.format("%s: %s\n", currentName, jokeLine);
 			System.out.println(tellerString);
-			this.jokeList.remove(0);
-			this.setRandomName();
+			jokeList.remove(0);
+			setRandomName();
 		}
 	}
 	
 	private void setRandomName() {
-		List<String> names = this.getNames();
+		List<String> names = getNames();
 		int idx = ThreadLocalRandom.current().nextInt(names.size() - 1);
-		this.currentName = names.get(idx);
+		currentName = names.get(idx);
 		Collections.swap(names, idx, 0);
 	}
 }
