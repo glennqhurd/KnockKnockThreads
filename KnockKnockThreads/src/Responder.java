@@ -1,10 +1,10 @@
-import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.List;
 
 public class Responder extends Speaker implements Runnable {
 	
-	List<Joke> jokeList;
-	String currentName;
+	private List<Joke> jokeList;
+	private String currentName;
 	
 	/**
 	 * Responder extends Speaker 
@@ -16,14 +16,18 @@ public class Responder extends Speaker implements Runnable {
 	}
 	
 	public void run() {
+		String blockCondition;
 		currentName = getCurrentName();
 		jokeList = getJokeList();
 		while (!jokeList.isEmpty()) {
-			String jokeLine = jokeList.get(0).getLine1();
+			blockCondition = getFromResponder();
 			String responderString = String.format("%s: Who's there?\n", currentName);
 			System.out.println(responderString);
-			responderString = String.format("%s: %s who?\n", currentName, jokeLine);
+			addToTeller(jokeList.get(0).getLine1());
+			blockCondition = getFromResponder();
+			responderString = String.format("%s: %s who?\n", currentName, blockCondition);
 			System.out.println(responderString);
+			addToTeller(jokeList.get(0).getLine2());
 			setRandomName();
 		}
 	}

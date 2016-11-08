@@ -1,4 +1,5 @@
 import java.util.Collections;
+import java.util.concurrent.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.List;
 
@@ -8,6 +9,8 @@ public class Speaker implements Runnable {
 	private String currentName;
 	private List<Joke> jokeList;
 	private String nameInUse = "";
+	private BlockingQueue<String> messageToTeller = new ArrayBlockingQueue<String>(1);
+	private BlockingQueue<String> messageToResponder = new ArrayBlockingQueue<String>(1);
 	
 	/**
 	 * A Speaker is an object that uses the run command to tell jokes
@@ -81,5 +84,31 @@ public class Speaker implements Runnable {
 	
 	protected List<String> getNames() {
 		return names;
+	}
+	
+	protected void addToTeller(String line) {
+		messageToTeller.add(line);
+	}
+	
+	protected String getFromTeller() {
+		try {
+			return messageToTeller.take();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		return "";
+	}
+	
+	protected void addToResponder(String line) {
+		messageToResponder.add(line);
+	}
+	
+	protected String getFromResponder() {
+		try {
+			return messageToResponder.take();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		return "";
 	}
 }

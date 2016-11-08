@@ -1,27 +1,30 @@
 import java.util.Collections;
-import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.List;
 
 public class Teller extends Speaker implements Runnable{
 	
-	List<Joke> jokeList;
-	String currentName;
+	private List<Joke> jokeList;
+	private String currentName;
 	
 	public Teller (List<String> names, List<Joke> jokeList) {
 		super(names, jokeList);
 	}
 
 	public void run() {
+		String blockCondition;
 		currentName = getCurrentName();
 		jokeList = getJokeList();
 		while (!jokeList.isEmpty()) {
-			String jokeLine = jokeList.get(0).getLine1();
 			String tellerString = String.format("%s: Knock knock!\n", currentName);
 			System.out.println(tellerString);
-			tellerString = String.format("%s: %s\n", currentName, jokeLine);
+			addToResponder("");
+			blockCondition = getFromTeller();
+			tellerString = String.format("%s: %s\n", currentName, blockCondition);
 			System.out.println(tellerString);
-			jokeLine = jokeList.get(0).getLine2();
-			tellerString = String.format("%s: %s\n", currentName, jokeLine);
+			addToResponder(jokeList.get(0).getLine1());
+			blockCondition = getFromTeller();
+			tellerString = String.format("%s: %s\n", currentName, blockCondition);
 			System.out.println(tellerString);
 			jokeList.remove(0);
 			setRandomName();

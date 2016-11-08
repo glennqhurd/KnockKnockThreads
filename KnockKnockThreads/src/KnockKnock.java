@@ -4,16 +4,23 @@ import java.util.List;
 public class KnockKnock {
 
 	public static void main(String args[]) {
-		List<String> names = Arrays.asList("Grandpa Lyman", "Uncle Glenn", "Uncle JJ", "Aunt Becca");
-		List<Joke> jokeList = Joke.jsonToJokes();
+		String[] nameArray = {"Grandpa Lyman", "Uncle Glenn", "Uncle JJ", "Aunt Becca"};
+		List<String> names = Arrays.asList(nameArray);
+		List<Joke> jokeList = Joke.readJokesFromFile("C:\\Users\\Glenn\\KnockKnockThreads\\KnockKnockThreads\\Jokes.txt");
 		
-		Speaker speaker1 = new Teller(names, jokeList);
-		Speaker speaker2 = new Responder(names, jokeList);
+		Speaker teller = new Teller(names, jokeList);
+		Speaker responder = new Responder(names, jokeList);
 		
-		Thread thread1 = new Thread(speaker1);
-		Thread thread2 = new Thread(speaker2);
+		Thread tellerThread = new Thread(teller);
+		Thread responderThread = new Thread(responder);
 		
-		thread1.start();
-		thread2.start();
+		tellerThread.start();
+		responderThread.start();
+		try {
+			tellerThread.join();
+			responderThread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 }

@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,12 +34,12 @@ public class Joke {
 	 * Opens a text file and translates the text into a List of Joke objects using JSON
 	 * @return jokeList
 	 */
-	public static List<Joke> jsonToJokes() {
+	public static List<Joke> readJokesFromFile(String filename) {
 		String jsonData = "";
 		BufferedReader br = null;
 		try {
 			String line;
-			br = new BufferedReader(new FileReader("C:\\Users\\Glenn\\KnockKnockThreads\\KnockKnockThreads\\Jokes.txt"));
+			br = new BufferedReader(new FileReader(filename));
 			while ((line = br.readLine()) != null) {
 				jsonData += line + "\n";
 			}
