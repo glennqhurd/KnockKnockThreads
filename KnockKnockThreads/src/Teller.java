@@ -1,4 +1,5 @@
 import java.util.Collections;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.List;
 
@@ -7,8 +8,9 @@ public class Teller extends Speaker implements Runnable{
 	private List<Joke> jokeList;
 	private String currentName;
 	
-	public Teller (List<String> names, List<Joke> jokeList) {
-		super(names, jokeList);
+	public Teller (List<String> names, List<Joke> jokeList, 
+			BlockingQueue<String> messageToTeller, BlockingQueue<String> messageToResponder) {
+		super(names, jokeList, messageToTeller, messageToResponder);
 	}
 
 	public void run() {

@@ -1,5 +1,6 @@
 import java.util.Collections;
 import java.util.concurrent.*;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.List;
 
@@ -20,9 +21,12 @@ public class Speaker implements Runnable {
 	 * @param names A List of Strings that contains the possible names
 	 * @param jokeList A List of Joke objects that store Strings
 	 */
-	public Speaker (List<String> names, List<Joke> jokeList) {
+	public Speaker (List<String> names, List<Joke> jokeList, BlockingQueue<String> messageToTeller, 
+			BlockingQueue<String> messageToResponder) {
 		this.names = names;
 		this.jokeList = jokeList;
+		this.messageToTeller = messageToTeller;
+		this.messageToResponder = messageToResponder;
 		this.setRandomName();
 	}
 	

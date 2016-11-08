@@ -1,3 +1,4 @@
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.List;
 
@@ -11,8 +12,9 @@ public class Responder extends Speaker implements Runnable {
 	 * @param names
 	 * @param jokeList
 	 */
-	public Responder(List<String> names, List<Joke> jokeList) {
-		super(names, jokeList);
+	public Responder(List<String> names, List<Joke> jokeList, 
+			BlockingQueue<String> messageToTeller, BlockingQueue<String> messageToResponder) {
+		super(names, jokeList, messageToTeller, messageToResponder);
 	}
 	
 	public void run() {
