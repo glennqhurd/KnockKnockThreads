@@ -5,6 +5,18 @@
 	},
 	{
 		"Line 1": "Broken pencil",
-		"Line 2": "Never mind, it's lost its point"
+		"Line 2": "Never mind, it's lost its point."
+	},
+	{
+		"Line 1": "Ya",
+		"Line 2": "I'm excited to see you too!"
+	},
+	{
+		"Line 1": "H",
+		"Line 2": "Bless you!"
+	},
+	{
+		"Line 1": "Cash",
+		"Line 2": "Don't go nuts!"
 	}
 ]

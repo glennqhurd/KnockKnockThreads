@@ -28,6 +28,7 @@ public class Teller extends Speaker implements Runnable{
 			blockCondition = getFromTeller();
 			tellerString = String.format("%s: %s\n", currentName, blockCondition);
 			System.out.println(tellerString);
+			System.out.println("-----------------------------");
 			jokeList.remove(0);
 			setRandomName();
 		}
