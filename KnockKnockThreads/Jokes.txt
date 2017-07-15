@@ -19,4 +19,8 @@
 		"Line 1": "Cash",
 		"Line 2": "Don't go nuts!"
 	}
+	{
+		"Line 1": "Waffle",
+		"Line 2": "No, it didn't make sense either..."
+	}
 ]
